@@ -11,8 +11,6 @@ public class DogInteractor : MonoBehaviour {
 	}
 
 	public void Bark() {
-		Dog.Dialog.TriggerDialog(DogEmotion.Bark);
-
 		RaycastHit hit;
 		if (BarkRaycast(out hit)) {
 			var tag = hit.transform.tag;
@@ -24,6 +22,9 @@ public class DogInteractor : MonoBehaviour {
 			}
 			if (tag == "Human") {
 				Human.Action.Queue(HumanActionType.Pet);
+			}
+			if (tag == "MenuDoor") {
+				Human.Action.Queue(HumanActionType.OpenMenuDoor);
 			}
 		}
 	}

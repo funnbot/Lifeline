@@ -9,7 +9,6 @@ public class HumanMovementController : MonoBehaviour {
 
 	private NavMeshAgent agent;
 
-	// Use this for initialization
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
 	}

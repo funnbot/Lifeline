@@ -20,24 +20,25 @@ public class TimeCycle : MonoBehaviour {
 		StartCoroutine(DayRoutine());
 	}
 
-	void Update() {
-		UpdateSunlight();
-	}
-
 	public bool IsNight() {
 		return Hour >= NightHour && Hour < MorningHour;
 	}
 
 	public void SkipToMorning() {
-		
+		SetHour(MorningHour);
+		NewDay();
 	}
 
-	public void SetHour() {
+	public void SkipHour(int amount) {
+		Hour += amount;
+	}
 
+	public void SetHour(int hour) {
+		Hour = hour;
 	}
 
 	void TriggerMorning() {
-
+		
 	}
 
 	void TriggerNight() {
@@ -51,7 +52,19 @@ public class TimeCycle : MonoBehaviour {
 
 	void UpdateSunlight() {
 		if (paused) return;
-		
+		float hour = Mathf.Abs(Hour - 12);
+		float perc = hour / 12;
+		Color col = Color.Lerp(DayColor, NightColor, perc);
+		StartCoroutine(FadeColor(Sun.color, col));
+	}
+
+	IEnumerator FadeColor(Color col1, Color col2) {
+		float lerp = 0f;
+		while (lerp < 1f) {
+			lerp += Time.deltaTime * 3;
+			Sun.color = Color.Lerp(col1, col2, lerp);
+			yield return null;
+		}
 	}
 
 	IEnumerator DayRoutine() {
@@ -59,13 +72,17 @@ public class TimeCycle : MonoBehaviour {
 		var wait = new WaitForSeconds(hour * 60);
 		while (true) {
 			if (!paused) {
+
 				Hour++;
+
 				if (Hour >= 24) {
 					Hour = 0;
 					Day++;
 					NewDay();
 				} else if (Hour == MorningHour) TriggerMorning();
 				else if (Hour == NightHour) TriggerNight();
+
+				UpdateSunlight();
 			}
 			yield return wait;
 		}

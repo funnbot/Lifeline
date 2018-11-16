@@ -24,7 +24,8 @@ public class HumanAction : MonoBehaviour {
 	}
 
 	public void Queue(HumanActionType act) {
-		if (actions.Count == 0 || actions.Peek() == act) return;
+		// Don't repeat actions
+		if (actions.Count != 0 && actions.Peek() == act) return;
 		actions.Enqueue(act);
 	}
 
@@ -49,6 +50,8 @@ public class HumanAction : MonoBehaviour {
 			StartCoroutine(DoPet());
 		else if (action == HumanActionType.Work)
 			StartCoroutine(DoWork());
+		else if (action == HumanActionType.OpenMenuDoor)
+			StartCoroutine(OpenMenuDoor());
 	}
 
 	IEnumerator DoSleep() {
@@ -118,6 +121,12 @@ public class HumanAction : MonoBehaviour {
 		processing = false;
 	}
 
+	IEnumerator OpenMenuDoor() {
+		yield return new WaitForSeconds(2);
+		yield return TriggerAnim("Use Counter");
+		Human.Dialog.TriggerDialog(HumanEmotion.Question);
+	}
+
 	IEnumerator TriggerAnim(string trigger) {
 		Human.Animator.SetTrigger(trigger);
 		var state = Human.Animator.GetCurrentAnimatorStateInfo(0);
@@ -133,7 +142,8 @@ public enum HumanActionType {
 	Eat,
 	Bath,
 	Walk,
-	Pet
+	Pet,
+	OpenMenuDoor
 }
 
 public enum HumanActionState {

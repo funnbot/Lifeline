@@ -9,7 +9,7 @@ public class DogController : MonoBehaviour {
 
 	void Update() {
 		if (barkTimer > 0) barkTimer -= Time.deltaTime;
-		
+
 		var input = InputManager.Axis();
 		var velocity = new Vector3(input.x, 0f, input.y);
 		velocity = transform.InverseTransformDirection(velocity);
@@ -46,6 +46,7 @@ public class DogController : MonoBehaviour {
 		if (barkTimer > 0) return;
 		barkTimer = BarkCooldown;
 
+		Dog.Dialog.TriggerDialog(DogEmotion.Bark);
 		Dog.Animator.SetTrigger("Bark");
 		Dog.Interactor.Bark();
 	}
