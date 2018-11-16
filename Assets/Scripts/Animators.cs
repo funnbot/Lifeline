@@ -13,6 +13,7 @@ public class Animators : MonoBehaviour {
 
 	public static  IEnumerator TriggerAnim(string name, string trigger) {
 		var anim = Get(name);
+		Debug.Log(anim.ToString());
 		anim.SetTrigger(trigger);
 		var state = anim.GetCurrentAnimatorStateInfo(0);
 		var length = state.length + state.normalizedTime;

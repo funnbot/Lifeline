@@ -123,6 +123,7 @@ public class HumanAction : MonoBehaviour {
 
 	IEnumerator OpenMenuDoor() {
 		yield return new WaitForSeconds(2);
+		StartCoroutine(Animators.TriggerAnim("Door", "Open"));
 		yield return TriggerAnim("Use Counter");
 		Human.Dialog.TriggerDialog(HumanEmotion.Question);
 	}
