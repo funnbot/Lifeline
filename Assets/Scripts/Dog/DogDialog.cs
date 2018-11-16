@@ -15,7 +15,7 @@ public class DogDialog : MonoBehaviour {
 		dialogPanel.gameObject.SetActive(false);
 	}
 
-	void TriggerDialog(DogEmotion em) {
+	public void TriggerDialog(DogEmotion em) {
 		var data = GetEmotion(em);
 		dialogText.text = data.text;
 		dialogPanel.color = data.color;

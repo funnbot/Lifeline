@@ -35,11 +35,12 @@ public class TimeCycle : MonoBehaviour {
 	}
 
 	void TriggerNight() {
-
+		
 	}
 
 	void NewDay() {
-
+		Human.Tracker.SetHunger(3);
+		Human.Tracker.SetCleanliness(4);
 	}
 
 	void SetSunRotation() {

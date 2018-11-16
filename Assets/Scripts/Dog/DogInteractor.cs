@@ -6,20 +6,29 @@ public class DogInteractor : MonoBehaviour {
 	public float InteractionDist;
 	public Transform CastPoint;
 
-	// Use this for initialization
-	void Start () {
-		
+	void Start() {
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	void Update() {
 		if (InputManager.Space()) {
 			Bark();
 		}
 	}
 
 	void Bark() {
+		Dog.Dialog.TriggerDialog(DogEmotion.Bark);
 
+		RaycastHit hit;
+		if (BarkRaycast(out hit)) {
+			var tag = hit.transform.tag;
+			if (tag == "Food") {
+				Human.Action.Queue(HumanActionType.Eat);
+			}
+			if (tag == "Bed") {
+				Human.Action.Queue(HumanActionType.Sleep);
+			}
+		}
 	}
 
 	bool BarkRaycast(out RaycastHit hit) {

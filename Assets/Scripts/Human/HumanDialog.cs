@@ -15,7 +15,7 @@ public class HumanDialog : MonoBehaviour {
 		dialogPanel.gameObject.SetActive(false);
 	}
 
-	void TriggerDialog(HumanEmotion em) {
+	public void TriggerDialog(HumanEmotion em) {
 		var data = GetEmotion(em);
 		dialogText.text = data.text;
 		dialogPanel.color = data.color;
