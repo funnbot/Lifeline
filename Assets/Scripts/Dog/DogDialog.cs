@@ -11,8 +11,17 @@ public class DogDialog : MonoBehaviour {
 	public Text dialogText;
 	public Image dialogPanel;
 
+	float decayTimer;
+
 	void Start() {
 		dialogPanel.gameObject.SetActive(false);
+	}
+
+	void Update() {
+		if (decayTimer > 0f) {
+			decayTimer -= Time.deltaTime;
+			if (decayTimer < 0f) DecayDialog();
+		}
 	}
 
 	public void TriggerDialog(DogEmotion em) {
@@ -20,11 +29,10 @@ public class DogDialog : MonoBehaviour {
 		dialogText.text = data.text;
 		dialogPanel.color = data.color;
 		dialogPanel.gameObject.SetActive(true);
-		StartCoroutine(DecayDialog());
+		decayTimer = DialogDecayTime;
 	}
 
-	IEnumerator DecayDialog() {
-		yield return new WaitForSeconds(DialogDecayTime);
+	void DecayDialog() {
 		dialogPanel.gameObject.SetActive(false);
 	}
 

@@ -34,6 +34,10 @@ public class HumanMovementController : MonoBehaviour {
 		yield return RotateTowards(t.rotation);
 	}
 
+	public void SetActive(bool active) {
+		agent.isStopped = !active;
+	}
+
 	IEnumerator RotateTowards(Quaternion rot) {
 		Quaternion orig = transform.rotation;
 		float lerp = 0f;

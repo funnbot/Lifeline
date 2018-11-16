@@ -7,6 +7,8 @@ public class TimeCycle : MonoBehaviour {
 	public int Hour;
 
 	public Light Sun;
+	public Color DayColor;
+	public Color NightColor;
 
 	public float DayInMinutes;
 	public int MorningHour;
@@ -14,20 +16,24 @@ public class TimeCycle : MonoBehaviour {
 
 	public bool paused;
 
-	private float SunRotSpeed;
-
 	void Start() {
 		StartCoroutine(DayRoutine());
-		SunRotSpeed = (360 / DayInMinutes) / 60;
 	}
 
 	void Update() {
-		SetSunRotation();
+		UpdateSunlight();
 	}
 
-	public void SkipHour(int amount) {
-		Hour += amount;
-		Sun.transform.Rotate(Vector3.left * SunRotSpeed * amount * 60);
+	public bool IsNight() {
+		return Hour >= NightHour && Hour < MorningHour;
+	}
+
+	public void SkipToMorning() {
+		
+	}
+
+	public void SetHour() {
+
 	}
 
 	void TriggerMorning() {
@@ -35,7 +41,7 @@ public class TimeCycle : MonoBehaviour {
 	}
 
 	void TriggerNight() {
-		
+
 	}
 
 	void NewDay() {
@@ -43,13 +49,9 @@ public class TimeCycle : MonoBehaviour {
 		Human.Tracker.SetCleanliness(4);
 	}
 
-	void SetSunRotation() {
+	void UpdateSunlight() {
 		if (paused) return;
-		if (Hour == 0) Sun.transform.localEulerAngles = new Vector3(-90, 0, 0);
-		else {
-			var sunRotAngle = new Vector3(-1, 0, 0);
-			Sun.transform.Rotate(sunRotAngle * SunRotSpeed * Time.deltaTime);
-		}
+		
 	}
 
 	IEnumerator DayRoutine() {
@@ -69,9 +71,9 @@ public class TimeCycle : MonoBehaviour {
 		}
 	}
 
-	public static TimeCycle Get;
+	public static TimeCycle Access;
 	void Awake() {
-		if (Get != null) Destroy(gameObject);
-		Get = this;
+		if (Access != null) Destroy(gameObject);
+		Access = this;
 	}
 }

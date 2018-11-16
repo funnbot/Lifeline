@@ -10,13 +10,7 @@ public class DogInteractor : MonoBehaviour {
 
 	}
 
-	void Update() {
-		if (InputManager.Space()) {
-			Bark();
-		}
-	}
-
-	void Bark() {
+	public void Bark() {
 		Dog.Dialog.TriggerDialog(DogEmotion.Bark);
 
 		RaycastHit hit;

@@ -25,6 +25,10 @@ public class InputManager : MonoBehaviour {
 		return Input.GetKeyDown(KeyCode.Space);
 	}
 
+	public static bool Escape() {
+		return Input.GetKeyDown(KeyCode.Escape);
+	}
+
 	public static void SetState(bool active) {
 		Instance.active = active;
 	}

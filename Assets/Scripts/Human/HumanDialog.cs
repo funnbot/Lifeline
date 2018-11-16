@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class HumanDialog : MonoBehaviour {
 	public float DialogDecayTime;
@@ -11,8 +11,17 @@ public class HumanDialog : MonoBehaviour {
 	public Text dialogText;
 	public Image dialogPanel;
 
+	float decayTimer;
+
 	void Start() {
 		dialogPanel.gameObject.SetActive(false);
+	}
+
+	void Update() {
+		if (decayTimer > 0f) {
+			decayTimer -= Time.deltaTime;
+			if (decayTimer < 0f) DecayDialog();
+		}
 	}
 
 	public void TriggerDialog(HumanEmotion em) {
@@ -20,11 +29,10 @@ public class HumanDialog : MonoBehaviour {
 		dialogText.text = data.text;
 		dialogPanel.color = data.color;
 		dialogPanel.gameObject.SetActive(true);
-		StartCoroutine(DecayDialog());
+		decayTimer = DialogDecayTime;
 	}
 
-	IEnumerator DecayDialog() {
-		yield return new WaitForSeconds(DialogDecayTime);
+	void DecayDialog() {
 		dialogPanel.gameObject.SetActive(false);
 	}
 

@@ -17,7 +17,14 @@ public class HumanAction : MonoBehaviour {
 		if (!processing) ProcessNext();
 	}
 
+	public void SetActive(bool active) {
+		Human.Animator.enabled = active;
+		processing = !active;
+		Human.Movement.SetActive(active);
+	}
+
 	public void Queue(HumanActionType act) {
+		if (actions.Count == 0 || actions.Peek() == act) return;
 		actions.Enqueue(act);
 	}
 
