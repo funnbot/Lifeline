@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Apartment
-  m_Shader: {fileID: 4800000, guid: 127122bf32457442c989d7769f9af1ab, type: 3}
+  m_Shader: {fileID: 4800000, guid: 957732c8ac7fb4d79971d8ba8e30bf89, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -59,6 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ALPHA: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -78,3 +79,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
