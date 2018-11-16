@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bed
   - Food
+  - Human
   layers:
   - Default
   - TransparentFX

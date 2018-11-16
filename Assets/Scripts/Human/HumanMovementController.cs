@@ -15,7 +15,7 @@ public class HumanMovementController : MonoBehaviour {
 	}
 
 	void Update() {
-		var vel = transform.InverseTransformDirection(agent.desiredVelocity);
+		var vel = transform.InverseTransformDirection(agent.velocity);
 		Human.Animator.SetFloat("Velocity", vel.z);
 	}
 
@@ -28,6 +28,18 @@ public class HumanMovementController : MonoBehaviour {
 		var t = locations.Single(l => l.name == locationName).transform;
 		agent.SetDestination(t.position);
 		while (!ReachedDestination()) {
+			yield return null;
+		}
+		//transform.rotation = t.rotation;
+		yield return RotateTowards(t.rotation);
+	}
+
+	IEnumerator RotateTowards(Quaternion rot) {
+		Quaternion orig = transform.rotation;
+		float lerp = 0f;
+		while (lerp < 1f) {
+			lerp += Time.deltaTime * 5;
+			transform.rotation = Quaternion.Slerp(orig, rot, lerp);
 			yield return null;
 		}
 	}

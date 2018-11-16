@@ -26,6 +26,8 @@ public class HumanAction : MonoBehaviour {
 		processing = true;
 		var action = actions.Dequeue();
 
+		Debug.Log("Action: " + action.ToString());
+
 		if (action == HumanActionType.Sleep)
 			StartCoroutine(DoSleep());
 		else if (action == HumanActionType.Wake)
@@ -43,9 +45,10 @@ public class HumanAction : MonoBehaviour {
 	}
 
 	IEnumerator DoSleep() {
-		yield return Human.Movement.GoTo("Bed");
-		yield return TriggerAnim("Lie Down");
 		State = HumanActionState.Sleeping;
+		yield return Human.Movement.GoTo("Bed");
+		yield return Human.Movement.GoTo("OnBed");
+		yield return TriggerAnim("Lie Down");
 		processing = false;
 	}
 
@@ -72,14 +75,15 @@ public class HumanAction : MonoBehaviour {
 			yield break;
 		}
 
+		State = HumanActionState.Eating;
+
 		yield return Human.Movement.GoTo("Fridge");
-		Animators.TriggerAnim("Fridge", "Open");
+		// Animators.TriggerAnim("Fridge", "Open");
 		yield return TriggerAnim("Access Fridge");
 		yield return Human.Movement.GoTo("Counter");
 		yield return TriggerAnim("Use Counter");
 
 		Human.Tracker.ResetHunger();
-		State = HumanActionState.Eating;
 		processing = false;
 	}
 
@@ -96,8 +100,8 @@ public class HumanAction : MonoBehaviour {
 	}
 
 	IEnumerator DoPet() {
-		yield return null;
 		State = HumanActionState.Petting;
+		yield return TriggerAnim("Pet");
 		processing = false;
 	}
 

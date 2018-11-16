@@ -28,6 +28,9 @@ public class DogInteractor : MonoBehaviour {
 			if (tag == "Bed") {
 				Human.Action.Queue(HumanActionType.Sleep);
 			}
+			if (tag == "Human") {
+				Human.Action.Queue(HumanActionType.Pet);
+			}
 		}
 	}
 
