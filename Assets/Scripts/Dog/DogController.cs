@@ -19,6 +19,7 @@ public class DogController : MonoBehaviour {
 			Sit();
 		}
 		if (InputManager.Ctrl()) {
+			Debug.Log("Control");
 			StartCoroutine(LieDown());
 		}
 		if (InputManager.Space()) {
@@ -56,5 +57,6 @@ public class DogController : MonoBehaviour {
 		var state = Dog.Animator.GetCurrentAnimatorStateInfo(0);
 		var length = state.length + state.normalizedTime;
 		yield return new WaitForSeconds(length);
+		yield break;
 	}
 }

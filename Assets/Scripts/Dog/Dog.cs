@@ -28,6 +28,10 @@ public class Dog : MonoBehaviour {
 		get { return Instance.animator; }
 	}
 
+	public static Transform Transform {
+		get { return Instance.transform; }
+	}
+
 	void Start() {
 		controller = GetComponent<DogController>();
 		dialog = GetComponent<DogDialog>();

@@ -8,6 +8,8 @@ TagManager:
   - Food
   - Human
   - MenuDoor
+  - FrontDoor
+  - BathroomDoor
   layers:
   - Default
   - TransparentFX

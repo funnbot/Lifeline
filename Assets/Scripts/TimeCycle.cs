@@ -21,7 +21,7 @@ public class TimeCycle : MonoBehaviour {
 	}
 
 	public bool IsNight() {
-		return Hour >= NightHour && Hour < MorningHour;
+		return Hour >= NightHour || Hour < MorningHour;
 	}
 
 	public void SkipToMorning() {
@@ -38,7 +38,7 @@ public class TimeCycle : MonoBehaviour {
 	}
 
 	void TriggerMorning() {
-		
+		Human.Action.Queue(HumanActionType.Work);
 	}
 
 	void TriggerNight() {

@@ -37,7 +37,7 @@ public class HumanMovementController : MonoBehaviour {
 		agent.isStopped = !active;
 	}
 
-	IEnumerator RotateTowards(Quaternion rot) {
+	public IEnumerator RotateTowards(Quaternion rot) {
 		Quaternion orig = transform.rotation;
 		float lerp = 0f;
 		while (lerp < 1f) {

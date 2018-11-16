@@ -17,14 +17,17 @@ public class DogInteractor : MonoBehaviour {
 			if (tag == "Food") {
 				Human.Action.Queue(HumanActionType.Eat);
 			}
-			if (tag == "Bed") {
+			else if (tag == "Bed") {
 				Human.Action.Queue(HumanActionType.Sleep);
 			}
-			if (tag == "Human") {
+			else if (tag == "Human") {
 				Human.Action.Queue(HumanActionType.Pet);
 			}
-			if (tag == "MenuDoor") {
+			else if (tag == "MenuDoor") {
 				Human.Action.Queue(HumanActionType.OpenMenuDoor);
+			}
+			else if (tag == "FrontDoor") {
+				Human.Action.Queue(HumanActionType.Walk);
 			}
 		}
 	}

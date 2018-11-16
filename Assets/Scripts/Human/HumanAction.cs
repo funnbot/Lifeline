@@ -38,8 +38,6 @@ public class HumanAction : MonoBehaviour {
 
 		if (action == HumanActionType.Sleep)
 			StartCoroutine(DoSleep());
-		else if (action == HumanActionType.Wake)
-			StartCoroutine(DoWake());
 		else if (action == HumanActionType.Eat)
 			StartCoroutine(DoEat());
 		else if (action == HumanActionType.Bath)
@@ -59,12 +57,6 @@ public class HumanAction : MonoBehaviour {
 		yield return Human.Movement.GoTo("Bed");
 		yield return Human.Movement.GoTo("OnBed");
 		yield return TriggerAnim("Lie Down");
-		processing = false;
-	}
-
-	IEnumerator DoWake() {
-		yield return null;
-		State = HumanActionState.Idle;
 		processing = false;
 	}
 
@@ -104,13 +96,33 @@ public class HumanAction : MonoBehaviour {
 	}
 
 	IEnumerator DoWalk() {
-		yield return null;
+		if (Human.Tracker.Cleanliness < 5) {
+			processing = false;
+			yield break;
+		}
+
+		if (State == HumanActionState.Working) {
+			Human.Tracker.annoyance++;
+			processing = false;
+			yield break;
+		}
 		State = HumanActionState.Walking;
-		processing = false;
+		yield return Human.Movement.GoTo("Door");
+		InputManager.SetState(false);
+		yield return Pause.Access.FadeColor(Color.clear, Color.black);
+		TimeCycle.Access.SkipHour(1);
+		yield return new WaitForSeconds(2);
+		yield return Pause.Access.FadeColor(Color.black, Color.clear);
+		InputManager.SetState(true);
+
+		Human.Tracker.AddHappiness(10);
+		Human.Tracker.SetCleanliness(3);
+		Human.Tracker.SetHunger(2);
 	}
 
 	IEnumerator DoPet() {
 		State = HumanActionState.Petting;
+		yield return Human.Movement.RotateTowards(Quaternion.Inverse(Dog.Transform.rotation));
 		yield return TriggerAnim("Pet");
 		processing = false;
 	}
@@ -123,7 +135,7 @@ public class HumanAction : MonoBehaviour {
 
 	IEnumerator OpenMenuDoor() {
 		yield return new WaitForSeconds(2);
-		StartCoroutine(Animators.TriggerAnim("Door", "Open"));
+		Animators.TriggerAnim("Door", "Open");
 		yield return TriggerAnim("Use Counter");
 		Human.Dialog.TriggerDialog(HumanEmotion.Question);
 	}
@@ -131,14 +143,13 @@ public class HumanAction : MonoBehaviour {
 	IEnumerator TriggerAnim(string trigger) {
 		Human.Animator.SetTrigger(trigger);
 		var state = Human.Animator.GetCurrentAnimatorStateInfo(0);
-		var length = state.length + state.normalizedTime;
+		var length = state.length - state.normalizedTime;
 		yield return new WaitForSeconds(length);
 	}
 }
 
 public enum HumanActionType {
 	Sleep,
-	Wake,
 	Work,
 	Eat,
 	Bath,
