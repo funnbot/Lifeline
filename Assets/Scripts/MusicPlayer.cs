@@ -6,6 +6,9 @@ public class MusicPlayer : MonoBehaviour {
 	public bool InMenu;
 	public float FadeSpeed;
 
+	public AudioClip DialogPopClip;
+	public AudioClip DogBarkClip;
+
 	private AudioSource Player;
 
 	void Start() {
@@ -17,6 +20,14 @@ public class MusicPlayer : MonoBehaviour {
 		}
 
 		StartCoroutine(FadeIn());
+	}
+
+	public void DogBark() {
+		Dog.Audio.PlayOneShot(DogBarkClip);
+	}
+
+	public void DialogPop() {
+		Human.Audio.PlayOneShot(DialogPopClip);
 	}
 
 	public IEnumerator FadeOut() {

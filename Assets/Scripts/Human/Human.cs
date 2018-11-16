@@ -28,12 +28,18 @@ public class Human : MonoBehaviour {
 		get { return Instance.animator; }
 	}
 
+	public AudioSource audioSource;
+	public static AudioSource Audio {
+		get { return Instance.audioSource; }
+	}
+
 	void Start() {
 		movement = GetComponent<HumanMovementController>();
 		dialog = GetComponent<HumanDialog>();
 		action = GetComponent<HumanAction>();
 		tracker = GetComponent<HumanTracker>();
 		animator = GetComponentInChildren<Animator>();
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	public static Human Instance;

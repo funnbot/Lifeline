@@ -32,12 +32,18 @@ public class Dog : MonoBehaviour {
 		get { return Instance.transform; }
 	}
 
+	public AudioSource audioSource;
+	public static AudioSource Audio {
+		get { return Instance.audioSource; }
+	}
+
 	void Start() {
 		controller = GetComponent<DogController>();
 		dialog = GetComponent<DogDialog>();
 		interactor = GetComponent<DogInteractor>();
 		movement = GetComponent<DogMovementController>();
 		animator = GetComponentInChildren<Animator>();
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	public static Dog Instance;

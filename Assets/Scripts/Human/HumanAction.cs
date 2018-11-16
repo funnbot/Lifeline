@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HumanAction : MonoBehaviour {
 	private Queue<HumanActionType> actions;
@@ -135,9 +136,13 @@ public class HumanAction : MonoBehaviour {
 
 	IEnumerator OpenMenuDoor() {
 		yield return new WaitForSeconds(2);
-		Animators.TriggerAnim("Door", "Open");
+		StartCoroutine(Animators.TriggerAnim("Door", "Open"));
 		yield return TriggerAnim("Use Counter");
 		Human.Dialog.TriggerDialog(HumanEmotion.Question);
+		yield return DoPet();
+
+		yield return Pause.Access.FadeColor(Color.clear, Color.black);
+		SceneManager.LoadScene("MainGame");
 	}
 
 	IEnumerator TriggerAnim(string trigger) {

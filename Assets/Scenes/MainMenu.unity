@@ -280,6 +280,11 @@ Prefab:
       propertyPath: PauseImage
       value: 
       objectReference: {fileID: 2133419417}
+    - target: {fileID: 114005238327072870, guid: 189c5265df690442eb1c9df208ea516e,
+        type: 2}
+      propertyPath: FadeSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189c5265df690442eb1c9df208ea516e, type: 2}
   m_IsPrefabAsset: 0
@@ -753,6 +758,16 @@ Prefab:
       propertyPath: FadeSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114953133315801126, guid: a24ff53c0422c450884cd0eac61a176f,
+        type: 2}
+      propertyPath: DogBarkClip
+      value: 
+      objectReference: {fileID: 8300000, guid: edc481ee4d3f84d4e85e2bd1fe313fc2, type: 3}
+    - target: {fileID: 114953133315801126, guid: a24ff53c0422c450884cd0eac61a176f,
+        type: 2}
+      propertyPath: DialogPopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b84a59c1a82b143d9a71b2cd1309c7a5, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a24ff53c0422c450884cd0eac61a176f, type: 2}
   m_IsPrefabAsset: 0

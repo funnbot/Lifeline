@@ -47,6 +47,7 @@ public class DogController : MonoBehaviour {
 		if (barkTimer > 0) return;
 		barkTimer = BarkCooldown;
 
+		MusicPlayer.Instance.DogBark();
 		Dog.Dialog.TriggerDialog(DogEmotion.Bark);
 		Dog.Animator.SetTrigger("Bark");
 		Dog.Interactor.Bark();

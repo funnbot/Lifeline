@@ -29,6 +29,7 @@ public class HumanDialog : MonoBehaviour {
 		dialogText.text = data.text;
 		dialogPanel.color = data.color;
 		dialogPanel.gameObject.SetActive(true);
+		MusicPlayer.Instance.DialogPop();
 		decayTimer = DialogDecayTime;
 	}
 
