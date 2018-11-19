@@ -11,9 +11,7 @@ public class DogController : MonoBehaviour {
 		if (barkTimer > 0) barkTimer -= Time.deltaTime;
 
 		var input = InputManager.Axis();
-		var velocity = new Vector3(input.x, 0f, input.y);
-		velocity = transform.InverseTransformDirection(velocity);
-		Dog.Animator.SetFloat("Velocity", velocity.z);
+		Dog.Animator.SetFloat("Velocity", input.y);
 
 		if (InputManager.Shift()) {
 			Sit();
